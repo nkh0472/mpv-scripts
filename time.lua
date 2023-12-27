@@ -15,8 +15,11 @@ options.read_options(opts)
 hour = string.gsub(opts.hour, '"', "")
 
 function show_time_fn()
-	mp.msg.info(os.date(hour .. ':%M'))
-	mp.osd_message(os.date(hour .. ":%M"))
+	local remaining_t_seconds = mp.get_property_number("playtime-remaining") or 0
+	remaining_t_mins = (remaining_t_seconds / 60)
+
+	mp.msg.info(string.format("%s + %d min", os.date("%H:%M:%S"), remaining_t_mins))
+	mp.osd_message(string.format("%s + %d min", os.date("%H:%M:%S"), remaining_t_mins))
 end
 
 
